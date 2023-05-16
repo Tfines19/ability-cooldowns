@@ -1,12 +1,14 @@
 :root {
   --ready: #c084fc;
-  --cooldown: #9d174d;
+  --cooldown: #890e3f;
   --deg: 360deg;
-  --text: #c7d2fe;
+  --text: #c084fc;
+  --text-cd: #be123c;
 }
 
 body {
   background-color: #1e1b4b;
+  color: var(--ready);
 }
 
 .main {
@@ -32,13 +34,16 @@ body {
   border-radius: 50%;
 }
 
+.cooldowntext {
+  color: var(--text-cd);
+}
+
 .name {
   position: absolute;
   bottom: -30px;
   font-size: 1.2rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 500;
-  color: var(--text);
   width: 100%;
   text-align: center;
 }

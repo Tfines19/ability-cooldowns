@@ -19,7 +19,6 @@ let nodes = [];
 abilities.forEach((ability) => {
   const node = document.createElement("div");
   node.classList = "ability";
-  node.dataset.name = ability.name;
   node.dataset.cooldown = ability.cooldown;
   node.dataset.key = ability.key;
   node.dataset.ready = ability.ready;
@@ -28,6 +27,7 @@ abilities.forEach((ability) => {
   const child = document.createElement("span");
   child.textContent = ability.name;
   child.className = "name";
+  // child.style.color = "var(--ready)";
   node.appendChild(child);
 
   nodes.push(node);
@@ -56,6 +56,8 @@ const keyHandler = (e) => {
   let angle = (progress / cooldown) * 360;
   let interval;
 
+  node.classList.add("cooldowntext");
+
   interval = setInterval(() => {
     if (progress > 0) {
       ability.ready = false;
@@ -65,6 +67,7 @@ const keyHandler = (e) => {
     } else {
       progress = cooldown;
       ability.ready = true;
+      node.classList.remove("cooldowntext");
       clearInterval(interval);
     }
   }, intervalFrequency);
