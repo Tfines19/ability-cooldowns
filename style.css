@@ -5,6 +5,8 @@
   --deg: 360deg;
   --text: white;
   --text-cd: #fdba74;
+  --overlay: #170326;
+  --overlay-light: #e879f9;
 }
 
 body {
@@ -41,12 +43,26 @@ body {
   font-size: 1.9rem;
 }
 
+.ability::before {
+  content: "";
+  position: absolute;
+  mix-blend-mode: hard-light;
+  z-index: 1;
+  background: radial-gradient(ellipse at top right, var(--overlay), transparent),
+    radial-gradient(ellipse at bottom right, var(--overlay), transparent);
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
 .cooldowntext {
   color: var(--text-cd);
 }
 
 .available {
   font-weight: 400;
+  position: relative;
+  z-index: 2;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 

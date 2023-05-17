@@ -49,12 +49,12 @@ const keyHandler = (e) => {
   if (!keybinds.includes(e.key)) {
     return;
   }
-  const node = getNode(e.key);
   const ability = abilities.find((ability) => ability.key === e.key);
 
   if (!ability.ready) {
     return;
   }
+  const node = getNode(e.key);
 
   let { cooldown } = node.dataset;
   let progress = cooldown;
@@ -63,15 +63,15 @@ const keyHandler = (e) => {
 
   interval = setInterval(() => {
     node.firstChild.classList.add("cooldowntext");
-    node.firstChild.textContent = "COOLDOWN";
+    node.firstChild.textContent = "";
     if (progress > 0) {
       ability.ready = false;
       progress -= decrementAmount;
       angle = (progress / cooldown) * 360;
       node.style.setProperty("--deg", `${360 - angle}deg`);
     } else {
-      progress = cooldown;
       ability.ready = true;
+      node.dataset.progress = cooldown;
       node.firstChild.textContent = "READY";
       node.firstChild.classList.remove("cooldowntext");
       clearInterval(interval);
