@@ -22,12 +22,17 @@ abilities.forEach((ability) => {
   node.dataset.cooldown = ability.cooldown;
   node.dataset.key = ability.key;
   node.dataset.ready = ability.ready;
-  node.setAttribute("style", "--deg: 360deg");
+  node.style.setProperty("--deg", `${360}deg`);
+
+  const available = document.createElement("div");
+
+  available.className = "available";
+  available.textContent = "READY";
 
   const child = document.createElement("span");
-  child.textContent = ability.name;
+  child.textContent = ability.name + ` - [${ability.key}]`;
   child.className = "name";
-  // child.style.color = "var(--ready)";
+  node.appendChild(available);
   node.appendChild(child);
 
   nodes.push(node);
@@ -56,18 +61,19 @@ const keyHandler = (e) => {
   let angle = (progress / cooldown) * 360;
   let interval;
 
-  node.classList.add("cooldowntext");
-
   interval = setInterval(() => {
+    node.firstChild.classList.add("cooldowntext");
+    node.firstChild.textContent = "COOLDOWN";
     if (progress > 0) {
       ability.ready = false;
       progress -= decrementAmount;
       angle = (progress / cooldown) * 360;
-      node.setAttribute("style", `--deg: ${360 - angle}deg;`);
+      node.style.setProperty("--deg", `${360 - angle}deg`);
     } else {
       progress = cooldown;
       ability.ready = true;
-      node.classList.remove("cooldowntext");
+      node.firstChild.textContent = "READY";
+      node.firstChild.classList.remove("cooldowntext");
       clearInterval(interval);
     }
   }, intervalFrequency);
